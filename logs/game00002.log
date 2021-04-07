@@ -1,0 +1,14 @@
+# Server version 0.08 running on Cesar-Spectre:8123
+# Game ID: 2
+# Board class: pentago_twist.PentagoBoard
+# Timeout: 20000
+# First Move Timeout: 30000
+# Date: Wed Apr 07 11:30:21 EDT 2021
+# Player 1: Player-0, 'Human', running on Cesar-Spectre
+# Player 2: Player-1, '260847683', running on Cesar-Spectre
+START Player-0 Human
+START Player-1 260847683
+0 0 0 0 0
+4 4 2 0 1
+GAMEOVER ILLEGAL MOVE: Player 0, Move: (4, 1), R/F: (2, 2) WINNER 1
+# Game ended: Wed Apr 07 11:30:36 EDT 2021
