@@ -12,6 +12,7 @@ public class SearchTreeNode {
     public PentagoMove move;
     public PentagoBoardState state;
     public ArrayList<SearchTreeNode> children;
+    public double UCB;
 
     // constructors
     public SearchTreeNode(SearchTreeNode parent, PentagoMove move) {
@@ -25,9 +26,19 @@ public class SearchTreeNode {
         this.state = newState;
     }
 
+    public SearchTreeNode(PentagoBoardState boardState) {
+        this.nWins = 0;
+        this.totalSimulations = 0;
+        this.parent = null;
+        this.move = null;
+        this.state = (PentagoBoardState) state.clone();
+        this.children = new ArrayList<>();
+        this.UCB = Integer.MAX_VALUE;
+    }
+
     // method to compute the UCB value for a given node
-    public double computeUCB(SearchTreeNode node) {
-        if (totalSimulations == 0) return Integer.MAX_VALUE;
-        return nWins / totalSimulations + Math.sqrt(2.0*Math.log(parent.totalSimulations)/totalSimulations);
+    public void computeUCB() {
+        if (totalSimulations == 0) this.UCB = Integer.MAX_VALUE;
+        this.UCB = nWins / totalSimulations + Math.sqrt(2.0*Math.log(parent.totalSimulations)/totalSimulations);
     }
 }

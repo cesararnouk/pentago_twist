@@ -3,3 +3,81 @@
 3,Human,260847683,1,260847683,5,game00003.log,ILLEGAL MOVE: Player 0, Move: (3, 3), R/F: (3, 3)
 4,Human,260847683,1,260847683,1,game00004.log,ILLEGAL MOVE: Player 0, Move: (2, 3), R/F: (1, 2)
 5,Human,260847683,0,Human,18,game00005.log,
+6,Human,260847683,1,260847683,6,game00006.log,ILLEGAL MOVE: Player 0, Move: (2, 0), R/F: (1, 3)
+7,Human,RandomPlayer,1,RandomPlayer,0,game00007.log,ILLEGAL MOVE: Player 0, Move: (1, 1), R/F: (0, 3)
+8,RandomPlayer,Human,0,RandomPlayer,0,game00008.log,ILLEGAL MOVE: Player 1, Move: (1, 3), R/F: (1, 3)
+9,Human,RandomPlayer,1,RandomPlayer,1,game00009.log,ILLEGAL MOVE: Player 0, Move: (1, 4), R/F: (1, 2)
+10,Human,RandomPlayer,1,RandomPlayer,3,game00010.log,ILLEGAL MOVE: Player 0, Move: (3, 4), R/F: (3, 3)
+11,Human,RandomPlayer,1,RandomPlayer,1,game00011.log,ILLEGAL MOVE: Player 0, Move: (1, 4), R/F: (1, 2)
+12,RandomPlayer,Human,0,RandomPlayer,0,game00012.log,ILLEGAL MOVE: Player 1, Move: (1, 3), R/F: (1, 2)
+13,Human,RandomPlayer,1,RandomPlayer,1,game00013.log,ILLEGAL MOVE: Player 0, Move: (1, 4), R/F: (1, 2)
+14,RandomPlayer,Human,0,RandomPlayer,0,game00014.log,ILLEGAL MOVE: Player 1, Move: (1, 3), R/F: (1, 2)
+15,RandomPlayer,Human,0,RandomPlayer,0,game00015.log,ILLEGAL MOVE: Player 1, Move: (1, 4), R/F: (1, 3)
+16,Human,RandomPlayer,1,RandomPlayer,1,game00016.log,ILLEGAL MOVE: Player 0, Move: (0, 4), R/F: (1, 2)
+17,RandomPlayer,Human,1,Human,5,game00017.log,
+18,Human,RandomPlayer,1,RandomPlayer,9,game00018.log,ILLEGAL MOVE: Player 0, Move: (5, 2), R/F: (2, 2)
+19,Human,RandomPlayer,1,RandomPlayer,18,game00019.log,
+20,Human,RandomPlayer,1,RandomPlayer,1,game00020.log,ILLEGAL MOVE: Player 0, Move: (2, 4), R/F: (1, 2)
+23,RandomPlayer,260847683,1,260847683,14,game00023.log,
+24,260847683,RandomPlayer,1,RandomPlayer,14,game00024.log,
+25,260847683,RandomPlayer,1,RandomPlayer,14,game00025.log,
+26,260847683,RandomPlayer,1,RandomPlayer,14,game00026.log,
+27,260847683,RandomPlayer,1,RandomPlayer,14,game00027.log,
+28,260847683,RandomPlayer,1,RandomPlayer,14,game00028.log,
+29,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00029.log,
+30,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00030.log,
+31,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00031.log,
+32,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00032.log,
+33,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00033.log,
+34,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00034.log,
+35,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00035.log,
+36,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00036.log,
+37,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00037.log,
+38,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00038.log,
+39,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00039.log,
+40,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00040.log,
+41,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00041.log,
+42,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00042.log,
+43,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00043.log,
+44,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00044.log,
+45,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00045.log,
+46,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00046.log,
+47,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00047.log,
+48,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00048.log,
+49,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00049.log,
+50,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00050.log,
+51,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00051.log,
+52,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00052.log,
+53,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00053.log,
+54,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00054.log,
+55,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00055.log,
+56,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00056.log,
+57,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00057.log,
+58,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00058.log,
+59,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00059.log,
+60,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00060.log,
+61,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00061.log,
+62,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00062.log,
+63,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00063.log,
+64,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00064.log,
+65,RandomPlayer,260847683,1,260847683,14,game00065.log,
+66,RandomPlayer,260847683,1,260847683,14,game00066.log,
+67,260847683,RandomPlayer,1,RandomPlayer,14,game00067.log,
+68,RandomPlayer,260847683,1,260847683,14,game00068.log,
+69,260847683,RandomPlayer,1,RandomPlayer,14,game00069.log,
+70,RandomPlayer,260847683,1,260847683,14,game00070.log,
+71,260847683,RandomPlayer,1,RandomPlayer,14,game00071.log,
+72,RandomPlayer,260847683,1,260847683,14,game00072.log,
+73,260847683,RandomPlayer,1,RandomPlayer,14,game00073.log,
+74,RandomPlayer,260847683,1,260847683,14,game00074.log,
+75,260847683,RandomPlayer,1,RandomPlayer,14,game00075.log,
+76,260847683,RandomPlayer,1,RandomPlayer,14,game00076.log,
+77,RandomPlayer,260847683,1,260847683,14,game00077.log,
+78,260847683,RandomPlayer,1,RandomPlayer,14,game00078.log,
+79,RandomPlayer,260847683,1,260847683,14,game00079.log,
+80,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00080.log,
+81,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00081.log,
+82,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00082.log,
+83,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00083.log,
+84,RandomPlayer,xxxxxxxxx,1,xxxxxxxxx,14,game00084.log,
+85,xxxxxxxxx,RandomPlayer,1,RandomPlayer,14,game00085.log,

@@ -58,7 +58,7 @@ public class ServerGUI extends JFrame implements BoardPanel.BoardPanelListener {
 
     // GUI Components
     private JList moveList;
-    private MoveListModel moveListModel = new MoveListModel();
+    private MoveListModel moveListModel = new MoveListModel ();
     private JLabel statusLabel;
     private final ServerGUI theFrame = this;
     private BoardPanel boardPanel = new BoardPanel();
