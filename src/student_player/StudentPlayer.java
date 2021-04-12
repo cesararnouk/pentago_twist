@@ -31,9 +31,9 @@ public class StudentPlayer extends PentagoPlayer {
 
         // Is random the best you can do?
         Move myMove = boardState.getRandomMove();
-
+        int player = boardState.getTurnPlayer();
         SearchTreeNode root = new SearchTreeNode(boardState);
         // Return your move to be processed by the server.
-        return MyTools.nextBestMove(root);
+        return MyTools.nextBestMove(root, player);
     }
 }

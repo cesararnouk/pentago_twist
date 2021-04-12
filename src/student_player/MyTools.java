@@ -15,9 +15,9 @@ public class MyTools {
      * @param node
      */
     public static void expand(SearchTreeNode node) {
-        ArrayList<PentagoMove> moves = node.state.getAllLegalMoves();
+        ArrayList<PentagoMove> moves = node.getState().getAllLegalMoves();
         for (PentagoMove m : moves) {
-            node.children.add(new SearchTreeNode(node, m));
+            node.getChildren().add(new SearchTreeNode(node, m));
         }
     }
 
@@ -26,24 +26,24 @@ public class MyTools {
      * default policy is randomness
      * @return either 0 or 1 depending on win / loss
      */
-    public static int simulateRandomRollout(SearchTreeNode node) { // default policy is randomness
-        SearchTreeNode tmp = node;
-        PentagoBoardState tmpState = (PentagoBoardState) node.state.clone();
-        if (tmp.state.gameOver()) { // terminal node
-            if (tmp.state.getWinner() == tmp.state.getTurnPlayer()) { // win
+    public static int simulateRandomRollout(SearchTreeNode node, int player) { // default policy is randomness
+        SearchTreeNode tmp = new SearchTreeNode(node);
+//        SearchTreeNode tmp = node;
+        PentagoBoardState tmpState = tmp.getState();
+        if (tmpState.gameOver()) { // terminal node
+            if (tmpState.getWinner() == player) { // win
                 return 1;
             } else {    // loss
                 return 0;
             }
         }
-        while (tmpState.getWinner() == Board.NOBODY) {
-            ArrayList<PentagoMove> moves = tmp.state.getAllLegalMoves();
-            int index = (int)(Math.random() * moves.size()); // pick random move
-            tmpState.processMove(moves.get(index));
+        while (!tmpState.gameOver()) {
+//            ArrayList<PentagoMove> moves = tmp.state.getAllLegalMoves();
+//            int index = (int)(Math.random() * moves.size()); // pick random move
+            tmpState.processMove((PentagoMove) tmpState.getRandomMove());
         }
-
-        return (tmpState.getWinner() == tmp.state.getTurnPlayer()) ? 1 : 0;
-
+        int win = (tmpState.getWinner() == player) ? 1 : 0;
+        return win;
     }
 
 
@@ -55,13 +55,17 @@ public class MyTools {
     public static void backPropagation(SearchTreeNode currentNode, int playOutResult) {
         SearchTreeNode tmp = currentNode;
         while (tmp != null) {
+            tmp.incrementTotalSimulations();
             if (playOutResult == Board.DRAW) {
-                tmp.nWins += 0.5;
-            } else {
-                tmp.nWins += playOutResult;
+                tmp.halfIncrementnWins();
+            } else if (playOutResult == 1) {
+                tmp.incrementnWins();
             }
-            tmp.totalSimulations++;
-            tmp = tmp.parent;
+            tmp.computeUCB();
+            if (tmp.getParent() == null) {
+                System.out.println("total sims in root: " + tmp.getTotalSimulations());
+            }
+            tmp = tmp.getParent();
         }
     }
 
@@ -76,7 +80,7 @@ public class MyTools {
             child.computeUCB();
         }
         return Collections.max(children,
-                Comparator.comparing(c -> c.UCB));
+                Comparator.comparing(c -> c.getUCB()));
     }
 
 
@@ -84,27 +88,34 @@ public class MyTools {
      * return the next best move
      * @param root
      */
-    public static PentagoMove nextBestMove(SearchTreeNode root) {
+    public static PentagoMove nextBestMove(SearchTreeNode root, int player) {
         long endTime = System.currentTimeMillis() + 1800;
-        SearchTreeNode tmp = root;
+//        SearchTreeNode tmp = new SearchTreeNode(root);
+//        SearchTreeNode tmp = root;
         int result;
         while (System.currentTimeMillis() < endTime) {
-            if (tmp.children.isEmpty()) { // leaf node
-                if (tmp.totalSimulations == 0) { // not yet explored
-                    result = simulateRandomRollout(tmp);
-                    backPropagation(tmp, result);
+            if (root.getChildren() == null || root.getChildren().isEmpty()) { // leaf node
+                if (root.getTotalSimulations() == 0) { // not yet explored
+                    result = simulateRandomRollout(root, player);
+                    backPropagation(root, result);
+//                    System.out.println("got here");
+//                    System.out.println("root wins: " + root.getnWins());
+//                    System.out.println("root ni: " + root.getTotalSimulations());
                 } else {
-                    expand(tmp);
-                    SearchTreeNode child = tmp.children.get(0);
-                    result = simulateRandomRollout(child); // choosing first new child (fully arbitrary)
-                    backPropagation(child, result);
+                    expand(root);
+//                    System.out.println("how many children in tmp? : " + tmp.children.size());
+//                    SearchTreeNode randomChild = root.getChildren().get(0);
+                    SearchTreeNode randomChild = root.getChildren().get((int) (Math.random() * root.getChildren().size()));
+                    result = simulateRandomRollout(randomChild, player); // choosing first new child (fully arbitrary)
+                    backPropagation(randomChild, result);
                 }
             } else {
-                tmp = getMaxUCB(tmp.children);
+//                System.out.println("did i get here?");
+                root = getMaxUCB(root.getChildren());
             }
         }
 
-        return tmp.move;
+        return root.getMove();
 
     }
 
