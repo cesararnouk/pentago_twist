@@ -62,9 +62,9 @@ public class MyTools {
                 tmp.incrementnWins();
             }
             tmp.computeUCB();
-            if (tmp.getParent() == null) {
-                System.out.println("total sims in root: " + tmp.getTotalSimulations());
-            }
+//            if (tmp.getParent() == null) {
+//                System.out.println("total sims in root: " + tmp.getTotalSimulations());
+//            }
             tmp = tmp.getParent();
         }
     }
@@ -94,28 +94,29 @@ public class MyTools {
 //        SearchTreeNode tmp = root;
         int result;
         while (System.currentTimeMillis() < endTime) {
-            if (root.getChildren() == null || root.getChildren().isEmpty()) { // leaf node
-                if (root.getTotalSimulations() == 0) { // not yet explored
-                    result = simulateRandomRollout(root, player);
-                    backPropagation(root, result);
-//                    System.out.println("got here");
-//                    System.out.println("root wins: " + root.getnWins());
-//                    System.out.println("root ni: " + root.getTotalSimulations());
+            // getting best child of root
+            SearchTreeNode tmp;
+            if (root.getChildren().size() != 0) {
+                tmp = getMaxUCB(root.getChildren());
+            } else {
+                tmp = root;
+            }
+            if (tmp.getChildren() == null || tmp.getChildren().isEmpty()) { // leaf node
+                if (tmp.getTotalSimulations() == 0) { // not yet explored
+                    result = simulateRandomRollout(tmp, player);
+                    backPropagation(tmp, result);
                 } else {
-                    expand(root);
-//                    System.out.println("how many children in tmp? : " + tmp.children.size());
-//                    SearchTreeNode randomChild = root.getChildren().get(0);
-                    SearchTreeNode randomChild = root.getChildren().get((int) (Math.random() * root.getChildren().size()));
+                    expand(tmp);
+                    SearchTreeNode randomChild = tmp.getChildren().get((int) (Math.random() * tmp.getChildren().size()));
                     result = simulateRandomRollout(randomChild, player); // choosing first new child (fully arbitrary)
                     backPropagation(randomChild, result);
                 }
             } else {
-//                System.out.println("did i get here?");
-                root = getMaxUCB(root.getChildren());
+                tmp = getMaxUCB(tmp.getChildren());
             }
         }
-
-        return root.getMove();
+        //System.out.println("Root children :" + root.getChildren().size());
+        return getMaxUCB(root.getChildren()).getMove();
 
     }
 
