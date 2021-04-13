@@ -1,0 +1,24 @@
+# Server version 0.08 running on ARNOUK-Desktop:8123
+# Game ID: 228
+# Board class: pentago_twist.PentagoBoard
+# Timeout: 20000
+# First Move Timeout: 30000
+# Date: Mon Apr 12 17:07:39 EDT 2021
+# Player 1: Player-0, '260735072', running on 127.0.0.1
+# Player 2: Player-1, '260847683', running on 127.0.0.1
+START Player-0 260735072
+START Player-1 260847683
+3 4 0 0 0
+0 1 1 0 1
+2 1 1 1 0
+0 3 3 0 1
+0 2 3 0 0
+0 0 0 1 1
+2 0 2 1 0
+0 4 0 0 1
+2 4 0 0 0
+0 0 0 0 1
+0 1 1 1 0
+0 3 0 0 1
+GAMEOVER WINNER 1
+# Game ended: Mon Apr 12 17:08:04 EDT 2021

@@ -7,10 +7,10 @@ import boardgame.Move;
  */
 public class PentagoMove extends Move {
     private int playerId;
-    private int xMove;
-    private int yMove;
-    private int aSwap;
-    private int bSwap;
+    private final int xMove;
+    private final int yMove;
+    private final int aSwap;
+    private final int bSwap;
     private boolean fromBoard;
 
     public PentagoMove(PentagoCoord coord, int aSwap, int bSwap, int playerId) {

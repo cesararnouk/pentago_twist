@@ -32,7 +32,7 @@ public class PentagoBoardPanel extends BoardPanel implements MouseListener, Mous
     private static final int SQUARE_SIZE = (int) (PIECE_SIZE * 1.25); // Squares 25% bigger than pieces.
 
     final class GUIPiece {
-        private Piece pieceType;
+        private final Piece pieceType;
         int xPos;
         int yPos;
         PentagoCoord coord;

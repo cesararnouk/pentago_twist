@@ -20,7 +20,7 @@ import java.io.IOException;
 // change ``client2_line`` to be equal to ``client1_line``.
 //
 public class Autoplay {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         int n_games;
         try {
             n_games = Integer.parseInt(args[0]);
@@ -43,8 +43,10 @@ public class Autoplay {
                     "boardgame.Client", "student_player.StudentPlayer");
             client1_pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
 
+//            ProcessBuilder client2_pb = new ProcessBuilder("java", "-cp", "bin", "-Xms520m", "-Xmx520m",
+//                    "boardgame.Client", "pentago_twist.RandomPentagoPlayer");
             ProcessBuilder client2_pb = new ProcessBuilder("java", "-cp", "bin", "-Xms520m", "-Xmx520m",
-                    "boardgame.Client", "pentago_twist.RandomPentagoPlayer");
+                    "boardgame.Client", "student_player2.StudentPlayer");
             client2_pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
 
             for (int i = 0; i < n_games; i++) {

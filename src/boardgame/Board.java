@@ -125,7 +125,7 @@ abstract public class Board implements Cloneable {
     abstract public int getNumberOfPlayers();
 
     /** Parse a move from a string */
-    abstract public Move parseMove(String str) throws NumberFormatException, IllegalArgumentException;
+    abstract public Move parseMove(String str) throws IllegalArgumentException;
 
     /** Return an independent copy of the board. */
     abstract public Object clone();

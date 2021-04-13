@@ -102,6 +102,6 @@ public class BoardPanel extends JPanel {
 
     /** Interface for objects requesting move inputs from a BoardPanel */
     public interface BoardPanelListener {
-        public void moveEntered(Move m);
+        void moveEntered(Move m);
     }
 } // End class

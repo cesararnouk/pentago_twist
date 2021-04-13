@@ -78,9 +78,9 @@ public class Server implements Runnable {
     private boolean quiet = false;
 
     // Files, sockets and threads
-    final private ClientHandler players[];
+    final private ClientHandler[] players;
     // A fake client handler for the board, if it wants to play moves
-    private ClientHandler boardClientHandler = new ClientHandler(Board.BOARD, this);
+    private final ClientHandler boardClientHandler = new ClientHandler(Board.BOARD, this);
     private Timer timer = new Timer();
 
 
@@ -159,7 +159,7 @@ public class Server implements Runnable {
                 // If we have too many servers running, wait for one to finish
                 while (servers.size() >= MAX_SERVERS) {
                     for (int i = 0; i < servers.size(); i++) {
-                        Server s = (Server) servers.get(i);
+                        Server s = servers.get(i);
                         synchronized (s) {
                             if (s.gameEnded)
                                 servers.removeElementAt(i);
@@ -170,7 +170,7 @@ public class Server implements Runnable {
 
                 // Get the board instance
                 Class cl = Class.forName(argClass);
-                java.lang.reflect.Constructor co = cl.getConstructor(new Class[0]);
+                java.lang.reflect.Constructor co = cl.getConstructor();
                 Board b = (Board) co.newInstance(new Object[0]);
 
                 // Open a server socket, we can reuse this multiple times
@@ -363,7 +363,7 @@ public class Server implements Runnable {
                 // before we sent messages to the client, so the GUI
                 // is ready to process move requests from any human players
                 if (gui != null) {
-                    String p[] = new String[players.length];
+                    String[] p = new String[players.length];
                     for (int i = 0; i < players.length; i++)
                         p[i] = players[i].getName();
                     // gui.gameStarted(board,gameID,p);
@@ -421,13 +421,13 @@ public class Server implements Runnable {
             cancelTimeout();
 
             try {
-                Move ms[];
+                Move[] ms;
 
                 // Let the board modify the move if not playing a history
                 Object o = playingHistory ? m : board.filterMove(m);
 
                 if (o instanceof Move) { // The board provided a move
-                    Move myArray[] = { (Move) o };
+                    Move[] myArray = { (Move) o };
                     ms = myArray;
                 } else { // An array of moves instead
                     ms = (Move[]) o;
@@ -477,7 +477,7 @@ public class Server implements Runnable {
         }
 
         gameID = max + 1;
-        String name = "000000" + Integer.toString(gameID);
+        String name = "000000" + gameID;
         logfilename = LOG_PREFIX + name.substring(name.length() - 5) + LOG_SUFFIX;
 
         // Open the log and print some header stuff
@@ -587,7 +587,7 @@ public class Server implements Runnable {
             try {
                 PrintStream out = new PrintStream(new FileOutputStream(new File(log_dir, OUTCOME_FILE), true));
                 String delim = ",";
-                out.print(Integer.toString(gameID) + delim);
+                out.print(gameID + delim);
 
                 int win = -1;
                 for (int i = 0; i < players.length; i++) {
@@ -604,7 +604,7 @@ public class Server implements Runnable {
 
                 out.print((win > -1 ? players[win].getPlayerID() : msg) + delim);
                 out.print((win > -1 ? players[win].getName() : "NOBODY") + delim);
-                out.print(Integer.toString(board.getTurnNumber()) + delim);
+                out.print(board.getTurnNumber() + delim);
                 out.print(logfilename + delim);
                 out.println(reason);
                 out.close();
@@ -744,11 +744,11 @@ public class Server implements Runnable {
     }
 
     private class RStarting implements Runnable {
-        String who[];
+        String[] who;
         Board b;
         int id;
 
-        public RStarting(Board bd, int i, String str[]) {
+        public RStarting(Board bd, int i, String[] str) {
             who = str;
             b = (Board) bd.clone();
             id = i;
@@ -790,15 +790,15 @@ public class Server implements Runnable {
 
     /** Communicates with one client. */
     class ClientHandler implements Runnable {
-        private Server server;
-        private Socket sock;
+        private final Server server;
+        private final Socket sock;
         private BufferedReader sockIn;
         private PrintStream sockOut;
         private boolean closed = false; // Shared var: synchronize on this object
         private boolean ready = false;
 
         private volatile String move;
-        private int colour;
+        private final int colour;
         private String name;
 
         public ClientHandler(Socket sock, int colour, Server server) {

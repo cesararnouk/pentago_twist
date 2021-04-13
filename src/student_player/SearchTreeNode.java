@@ -127,4 +127,8 @@ public class SearchTreeNode {
             }
         }
     }
+
+    public void removeChild(SearchTreeNode node) {
+        this.children.remove(node);
+    }
 }

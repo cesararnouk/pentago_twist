@@ -34,14 +34,14 @@ public class PentagoBoardState extends BoardState {
     private static final UnaryOperator<PentagoCoord> getNextVertical = c -> new PentagoCoord(c.getX()+1, c.getY());
     private static final UnaryOperator<PentagoCoord> getNextDiagRight = c -> new PentagoCoord(c.getX()+1, c.getY()+1);
     private static final UnaryOperator<PentagoCoord> getNextDiagLeft = c -> new PentagoCoord(c.getX()+1, c.getY()-1);
-    private static int FIRST_PLAYER = 0;
+    private static final int FIRST_PLAYER = 0;
 
-    private Piece[][] board;
-    private Piece[][][] quadrants;
+    private final Piece[][] board;
+    private final Piece[][][] quadrants;
     private int turnPlayer;
     private int turnNumber;
     private int winner;
-    private Random rand;
+    private final Random rand;
 
     PentagoBoardState() {
         super();

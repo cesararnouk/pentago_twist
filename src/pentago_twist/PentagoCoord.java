@@ -5,8 +5,8 @@ package pentago_twist;
  * @author mgrenander
  */
 public class PentagoCoord {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public PentagoCoord(int x, int y) throws IllegalArgumentException {
         if (!isValidCoord(x, y)) {

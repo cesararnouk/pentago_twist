@@ -37,29 +37,33 @@ public class ServerGUI extends JFrame implements BoardPanel.BoardPanelListener {
     /** The list of games for which servers can be launched */
     protected static final String[] BOARD_CLASSES = { "pentago_twist.PentagoBoard" };
     /** The list of players that can be launched */
-    protected static final String[] PLAYER_CLASSES = { "pentago_twist.RandomPentagoPlayer", "student_player.StudentPlayer" };
+    protected static final String[] PLAYER_CLASSES = { "student_player2.StudentPlayer", "student_player.StudentPlayer" };
     private static final int BOARD_SIZE = 800;
     private static final int LIST_WIDTH = 280;
 
     private Board board; // Most recently updated board
     private int currentBoard = -1; // Displayed board index
-    private Vector moveHistory = new Vector();
-    private Vector boardHistory = new Vector();
+    private final Vector moveHistory = new Vector();
+    private final Vector boardHistory = new Vector();
     private String outcome = null; // The outcome message from the server
 
     // Menu actions
-    private AbstractAction firstAction, backAction, fwdAction, lastAction;
-    private AbstractAction openAction, closeAction;
-    private AbstractAction playAsAction;
-    private AbstractAction killServerAction;
-    private AbstractAction clientActions[];
-    private AbstractAction serverActions[];
-    private AbstractAction fromHereAction;
+    private final AbstractAction firstAction;
+    private final AbstractAction backAction;
+    private final AbstractAction fwdAction;
+    private final AbstractAction lastAction;
+    private final AbstractAction openAction;
+    private final AbstractAction closeAction;
+    private final AbstractAction playAsAction;
+    private final AbstractAction killServerAction;
+    private final AbstractAction[] clientActions;
+    private final AbstractAction[] serverActions;
+    private final AbstractAction fromHereAction;
 
     // GUI Components
-    private JList moveList;
-    private MoveListModel moveListModel = new MoveListModel ();
-    private JLabel statusLabel;
+    private final JList moveList;
+    private final MoveListModel moveListModel = new MoveListModel ();
+    private final JLabel statusLabel;
     private final ServerGUI theFrame = this;
     private BoardPanel boardPanel = new BoardPanel();
 
@@ -241,7 +245,7 @@ public class ServerGUI extends JFrame implements BoardPanel.BoardPanelListener {
                     }
 
                     clearData();
-                    java.lang.reflect.Constructor co = bd.getClass().getConstructor(new Class[0]);
+                    java.lang.reflect.Constructor co = bd.getClass().getConstructor();
                     Board b = (Board) co.newInstance(new Object[0]);
                     Server svr = new Server(b, false, true, Server.DEFAULT_PORT, Server.DEFAULT_TIMEOUT,
                             Server.FIRST_MOVE_TIMEOUT);
@@ -386,7 +390,7 @@ public class ServerGUI extends JFrame implements BoardPanel.BoardPanelListener {
             String cls = line.substring(14).trim();
             // Create a board instance
             Class cl = Class.forName(cls);
-            java.lang.reflect.Constructor co = cl.getConstructor(new Class[0]);
+            java.lang.reflect.Constructor co = cl.getConstructor();
             Board b = (Board) co.newInstance(new Object[0]);
             // Add the moves as if receiving them from the server
             String[] players = new String[b.getNumberOfPlayers()];
@@ -547,7 +551,7 @@ public class ServerGUI extends JFrame implements BoardPanel.BoardPanelListener {
             bdCls = bd.getClass();
         }
 
-        private Class bdCls;
+        private final Class bdCls;
         private Move myMove = null;
         private boolean moveNeeded = false;
         private Thread clientThread = null;
@@ -558,10 +562,10 @@ public class ServerGUI extends JFrame implements BoardPanel.BoardPanelListener {
         };
 
         public void movePlayed(BoardState bs, Move m) {
-        };
+        }
 
         public void gameOver(String msg, BoardState bs) {
-        };
+        }
 
         /* Called by client threads when user input is needed */
         synchronized public Move chooseMove(BoardState bs) {
@@ -615,7 +619,7 @@ public class ServerGUI extends JFrame implements BoardPanel.BoardPanelListener {
             Board bd = null;
 
             try {
-                java.lang.reflect.Constructor co = bdCls.getConstructor(new Class[0]);
+                java.lang.reflect.Constructor co = bdCls.getConstructor();
                 bd = (Board) co.newInstance(new Object[0]);
             } catch (Exception ex) {
                 System.err.println("Error creating board class " + bdCls.getName());
@@ -639,7 +643,7 @@ public class ServerGUI extends JFrame implements BoardPanel.BoardPanelListener {
                 clearData();
                 Board b;
                 Class cl = Class.forName(boardClass);
-                java.lang.reflect.Constructor co = cl.getConstructor(new Class[0]);
+                java.lang.reflect.Constructor co = cl.getConstructor();
                 b = (Board) co.newInstance(new Object[0]);
                 Server svr = new Server(b, false);
                 setServer(svr);
@@ -650,7 +654,7 @@ public class ServerGUI extends JFrame implements BoardPanel.BoardPanelListener {
                 ex.printStackTrace();
             }
         }
-    };
+    }
 
     // An action to launch a client
     private class LaunchClientAction extends AbstractAction {
@@ -665,7 +669,7 @@ public class ServerGUI extends JFrame implements BoardPanel.BoardPanelListener {
             try {
                 Player p;
                 Class cl = Class.forName(playerClass);
-                java.lang.reflect.Constructor co = cl.getConstructor(new Class[0]);
+                java.lang.reflect.Constructor co = cl.getConstructor();
                 p = (Player) co.newInstance(new Object[0]);
                 // Diable this action
                 enableLaunchActions(false);
@@ -703,6 +707,6 @@ public class ServerGUI extends JFrame implements BoardPanel.BoardPanelListener {
         void cleared(int maxIndex) {
             this.fireIntervalRemoved(this, 0, maxIndex);
         }
-    };
+    }
 
 } // end class ServerGUI

@@ -20,8 +20,8 @@ public class Client implements Runnable {
     private Socket socket;
     private PrintWriter sockOut;
     private BufferedReader sockIn;
-    private String serverName;
-    private int serverPort;
+    private final String serverName;
+    private final int serverPort;
 
     Player player;
     int playerID;
@@ -45,7 +45,7 @@ public class Client implements Runnable {
                 Player p;
                 try {
                     Class cl = Class.forName(args.length > 0 ? args[0] : DEFAULT_PLAYER);
-                    java.lang.reflect.Constructor co = cl.getConstructor(new Class[0]);
+                    java.lang.reflect.Constructor co = cl.getConstructor();
                     p = (Player) co.newInstance(new Object[0]);
                 } catch (Exception e) {
                     System.err.println("Failed to create Player object: " + e);

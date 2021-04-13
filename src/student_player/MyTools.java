@@ -1,6 +1,7 @@
 package student_player;
 
 import boardgame.Board;
+import boardgame.Player;
 import pentago_twist.PentagoBoardState;
 import pentago_twist.PentagoMove;
 
@@ -89,35 +90,69 @@ public class MyTools {
      * @param root
      */
     public static PentagoMove nextBestMove(SearchTreeNode root, int player) {
-        long endTime = System.currentTimeMillis() + 1800;
-//        SearchTreeNode tmp = new SearchTreeNode(root);
-//        SearchTreeNode tmp = root;
+        long endTime = System.currentTimeMillis() + 2000;
         int result;
         while (System.currentTimeMillis() < endTime) {
-            // getting best child of root
             SearchTreeNode tmp;
+            // getting best child of root
             if (root.getChildren().size() != 0) {
                 tmp = getMaxUCB(root.getChildren());
             } else {
                 tmp = root;
             }
-            if (tmp.getChildren() == null || tmp.getChildren().isEmpty()) { // leaf node
-                if (tmp.getTotalSimulations() == 0) { // not yet explored
-                    result = simulateRandomRollout(tmp, player);
-                    backPropagation(tmp, result);
-                } else {
-                    expand(tmp);
-                    SearchTreeNode randomChild = tmp.getChildren().get((int) (Math.random() * tmp.getChildren().size()));
-                    result = simulateRandomRollout(randomChild, player); // choosing first new child (fully arbitrary)
-                    backPropagation(randomChild, result);
-                }
+            if (tmp.getTotalSimulations() == 0) { // not yet visited so don't expand
+                result = simulateRandomRollout(tmp, player);
+                backPropagation(tmp, result);
             } else {
-                tmp = getMaxUCB(tmp.getChildren());
+                expand(tmp);
+                SearchTreeNode randomChild = tmp.getChildren().get((int) (Math.random() * tmp.getChildren().size()));
+                result = simulateRandomRollout(randomChild, player); // choosing first new child (fully arbitrary)
+                backPropagation(randomChild, result);
             }
         }
-        //System.out.println("Root children :" + root.getChildren().size());
-        return getMaxUCB(root.getChildren()).getMove();
 
+        //SearchTreeNode toRemove = null;
+        for(SearchTreeNode node: root.getChildren()) {
+            if (node.getState().getWinner() == player)
+                return node.getMove(); // assuring that winning move is taken if possible
+            else if (node.getState().getWinner() == 1 - player) {
+                System.out.println("win giveaway avoidance successful");
+                // avoiding giving away win with own move
+                //toRemove = node;
+                root.removeChild(node);
+            }
+        }
+        //root.removeChild(toRemove);
+
+        SearchTreeNode bestNode = getMaxUCB(root.getChildren());
+
+        // super super useful method
+        int i = 0;
+        while (potentialOpponentWin(bestNode, player)) { // while moves lead to potential opponent win
+            root.removeChild(bestNode);
+            bestNode = getMaxUCB(root.getChildren());
+        }
+
+        return bestNode.getMove();
+    }
+
+
+/////////////////////////////////////////////////////////////////// -----------------------
+    // ADDITIONAL IMPROVEMENTS
+/////////////////////////////////////////////////////////////////// ------------------------
+
+    public static boolean potentialOpponentWin(SearchTreeNode bestNode, int player) {
+        // avoid allowing potential win for opponent
+        PentagoBoardState currentState = (PentagoBoardState) bestNode.getState().clone();
+        ArrayList<PentagoMove> opponentLegalMoves = currentState.getAllLegalMoves();
+        for (PentagoMove opponentMove : opponentLegalMoves) {
+            currentState = (PentagoBoardState) bestNode.getState().clone();
+            currentState.processMove(opponentMove);
+            // opponent potential next move leads to win for them
+            if (currentState.getWinner() == 1 - player)
+                return true;
+        }
+        return false;
     }
 
 }
